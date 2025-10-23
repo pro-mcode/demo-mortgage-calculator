@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mortgage Calculator</title>
+    <link rel="stylesheet" href="css/output.css" />
+    <link
+      rel="shortcut icon"
+      href="/assets/images/favicon-32x32.png"
+      type="image/x-icon"
+    />
+  </head>
+  <body class="body-container">
+    <!-- Global Contianer -->
+    <div
+      class="w-full my-0 md:max-w-[95%] lg:max-w-4xl shadow-lg font-mainFont bg-white flex flex-col justify-center md:flex-row md:items-stretch md:rounded-2xl"
+    >
+      <!-- Left Panel -->
+      <div
+        class="flex flex-col justify-center items-start py-10 px-6 w-full md:w-1/2"
+      >
+        <!-- Title and Clear Button -->
+        <div
+          class="block space-y-2 md:flex md:justify-between md:items-center md:gap-x-8 md:space-y-0 w-full"
+        >
+          <!-- Title -->
+          <h3 class="text-custom text-lg font-semibold tracking-wide">
+            Mortgage Calculator
+          </h3>
+          <!-- Button -->
+          <button
+            class="text-sm text-custom font-medium opacity-50 underline underline-offset-2 hover:opacity-80 transition-all duration-300"
+            id="clear-inputs"
+          >
+            Clear All
+          </button>
+        </div>
+        <!-- Form -->
+        <form action="#" class="my-2 w-full">
+          <!-- Mortgage Amount -->
+          <div class="my-4">
+            <label
+              for="mortgage-amount"
+              class="text-base text-custom font-medium opacity-60"
+            >
+              Mortgage Amount
+            </label>
+            <div
+              class="group relative flex items-center mt-2 border-[1.5px] border-custom/30 rounded-md h-11 transition-all duration-300 focus-within:border-secondary error-border"
+            >
+              <!-- Pound Sign -->
+              <span
+                class="flex items-center justify-center w-[10%] h-full text-sm font-medium text-custom/70 bg-primary rounded-l-[4px] transition-colors duration-300 group-focus-within:bg-secondary error-bg"
+              >
+                &pound;
+              </span>
+
+              <!-- Input -->
+              <input
+                id="mortgage-amount"
+                type="text"
+                placeholder="Enter amount"
+                class="w-[90%] h-full text-sm text-custom/80 font-medium bg-transparent focus:outline-none px-4 rounded-r-md cursor-pointer"
+              />
+            </div>
+            <span class="err-msg text-error text-sm"></span>
+          </div>
+          <!-- Mortgage Term and Interest Rate -->
+          <div class="flex flex-col md:flex-row md:gap-2">
+            <!-- Mortgage Term -->
+            <div class="my-2 w-full">
+              <label
+                for="mortgage-term"
+                class="text-base text-custom font-medium opacity-60"
+                >Mortgage Term</label
+              >
+              <div
+                class="group relative flex items-center mt-2 border-[1.5px] border-custom/30 rounded-md h-11 transition-all duration-300 focus-within:border-secondary error-border"
+              >
+                <!-- Input -->
+                <input
+                  id="mortgage-years"
+                  type="number"
+                  class="w-[90%] h-full text-sm text-custom/80 font-medium bg-transparent focus:outline-none px-4 rounded-r-md cursor-pointer"
+                />
+                <!-- Year(s) span -->
+                <span
+                  class="absolute right-0 flex items-center justify-center w-fit px-2 h-full text-sm font-medium text-custom/70 bg-primary rounded-r-[4px] transition-colors duration-300 group-focus-within:bg-secondary error-bg"
+                >
+                  year(s)
+                </span>
+              </div>
+              <span class="err-msg text-error text-sm"></span>
+            </div>
+            <!-- Interest Rate -->
+            <div class="my-2 w-full">
+              <label
+                for="interest-rate"
+                class="text-base text-custom font-medium opacity-60"
+                >Interest Rate</label
+              >
+              <div
+                class="group relative flex items-center mt-2 border-[1.5px] border-custom/30 rounded-md h-11 transition-all duration-300 focus-within:border-secondary error-border"
+              >
+                <!-- Input -->
+                <input
+                  id="mortgage-rate"
+                  type="number"
+                  class="w-[90%] h-full text-sm text-custom/80 font-medium bg-transparent focus:outline-none px-4 rounded-r-md cursor-pointer"
+                />
+                <!-- Percentage Sign -->
+                <span
+                  class="absolute right-0 flex items-center justify-center w-fit px-4 h-full text-sm font-medium text-custom/70 bg-primary rounded-r-[4px] transition-colors duration-300 group-focus-within:bg-secondary error-bg"
+                >
+                  &percnt;
+                </span>
+              </div>
+              <span class="err-msg text-error text-sm"></span>
+            </div>
+          </div>
+          <!-- Mortgage Type -->
+          <div class="my-4">
+            <label class="block text-base text-custom font-medium opacity-60">
+              Mortgage Type
+            </label>
+            <div class="block space-y-4 mt-2">
+              <div class="flex flex-col gap-3">
+                <!-- Repayment -->
+                <div class="relative">
+                  <input
+                    type="radio"
+                    id="repayment"
+                    name="mortgageType"
+                    value="repayment"
+                    class="peer hidden"
+                  />
+
+                  <label
+                    for="repayment"
+                    class="flex items-center space-x-4 cursor-pointer select-none border-[1.5px] border-custom/30 rounded-md w-full h-11 transition-all duration-300 hover:bg-custom/5 hover:border-secondary peer-checked:border-secondary error-border peer-checked:bg-secondary/5 pl-4"
+                  >
+                    <span
+                      class="ml-6 text-base text-custom/70 font-medium transition-all duration-300 peer-checked:text-secondary"
+                    >
+                      Repayment
+                    </span>
+                  </label>
+
+                  <!-- Custom Circle Indicator -->
+                  <span
+                    class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full border border-custom/40 flex items-center justify-center transition-all duration-300 peer-checked:border-secondary peer-checked:bg-secondary/20 peer-checked:after:content-[''] peer-checked:after:w-2 peer-checked:after:h-2 peer-checked:after:bg-secondary peer-checked:after:rounded-full"
+                  ></span>
+                </div>
+
+                <!-- Interest Only -->
+                <div class="relative">
+                  <input
+                    type="radio"
+                    id="interest-only"
+                    name="mortgageType"
+                    value="interest-only"
+                    class="peer hidden"
+                  />
+                  <label
+                    for="interest-only"
+                    class="flex items-center space-x-4 cursor-pointer select-none border-[1.5px] border-custom/30 rounded-md w-full h-11 transition-all duration-300 hover:bg-custom/5 hover:border-secondary peer-checked:border-secondary error-border peer-checked:bg-secondary/5 pl-4"
+                  >
+                    <span
+                      class="ml-6 text-base text-custom/70 font-medium transition-all duration-300 peer-checked:text-secondary"
+                    >
+                      Interest Only
+                    </span>
+                  </label>
+
+                  <span
+                    class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full border border-custom/40 flex items-center justify-center transition-all duration-300 peer-checked:border-secondary peer-checked:bg-secondary/20 peer-checked:after:content-[''] peer-checked:after:w-2 peer-checked:after:h-2 peer-checked:after:bg-secondary peer-checked:after:rounded-full"
+                  ></span>
+                </div>
+                <span class="err-msg text-error text-sm"></span>
+              </div>
+            </div>
+          </div>
+          <!-- Button -->
+          <button
+            class="bg-secondary flex justify-center items-center gap-x-2 py-3 px-6 w-full rounded-full md:w-fit md:px-8 hover:opacity-70 transition-all duration-300"
+            id="calculate-mortgage"
+            type="submit"
+          >
+            <img
+              src="/assets/images/icon-calculator.svg"
+              alt="Calculator"
+              class="w-5"
+            />
+            <div class="text-custom text-base font-semibold">
+              Calculate Repayments
+            </div>
+          </button>
+        </form>
+      </div>
+      <!-- Right Panel -->
+      <!-- Empty -->
+      <div
+        class="flex flex-col justify-center items-start md:rounded-r-2xl bg-[#13303E] text-white py-12 px-6 w-full md:w-1/2 md:rounded-bl-[3rem]"
+        id="default-page"
+      >
+        <div class="empty flex flex-col justify-center items-center">
+          <img src="/assets/images/illustration-empty.svg" alt="empty result" />
+          <h3 class="text-white text-lg font-semibold tracking-wide">
+            Results shown here
+          </h3>
+          <p
+            class="text-white text-sm text-center font-normal opacity-70 leading-tight mt-3"
+          >
+            Complete the form and click "calculate repayments" to see what your
+            monthly repayments would be.
+          </p>
+        </div>
+      </div>
+      <!-- Result -->
+      <div
+        class="hidden flex-col justify-start items-start md:rounded-r-2xl bg-[#13303E] text-white py-12 px-6 w-full md:w-1/2 md:rounded-bl-[4rem]"
+        id="result-page"
+      >
+        <div class="result flex flex-col justify-start items-start">
+          <h3 class="text-white text-lg font-semibold text-left tracking-wide">
+            Your Results
+          </h3>
+          <p
+            class="text-white text-sm font-normal opacity-50 leading-tight mt-3 text-left"
+          >
+            Your results are shown below based on the information you provided.
+            To adjust the results, edit the form and click "calculate
+            repayments" again.
+          </p>
+          <!-- Outer Card -->
+          <div
+            class="relative bg-secondary w-full rounded-t-lg h-52 mt-8 shadow-md"
+          >
+            <div
+              class="absolute top-1 left-0 right-0 w-full bg-[#0F2530] rounded-lg p-4 shadow-md"
+            >
+              <p class="text-xs text-white opacity-70" id="mort-type"></p>
+              <p class="text-xs text-white opacity-70" id="result"></p>
+
+              <h4
+                class="text-secondary text-4xl font-medium mt-3"
+                id="monthly-repay"
+              ></h4>
+              <div class="border-t border-gray-600 w-full my-8"></div>
+              <p class="text-xs text-white opacity-70" id="repayment">
+                Total you'll repay over the term
+              </p>
+              <h5
+                class="text-white text-lg font-medium tracking-wide mt-1"
+                id="total-repay"
+              ></h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/js/index.js"></script>
+  </body>
+</html>

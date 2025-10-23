@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.body-container {
+  @apply md:bg-primary mx-auto flex flex-col justify-center items-center min-h-screen md:py-12 md:px-5;
+}
+/* Hide native radio */
+.radio-wrap input[type="radio"] {
+  display: none;
+}
+
+Outer circle (default: black border) .radio-wrap .custom-radio {
+  width: 14px;
+  height: 14px;
+  border: 1px solid #102d3d; /* black by default */
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  margin-right: 8px;
+  vertical-align: middle;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Checked: change border + add dot */
+.radio-wrap input[type="radio"]:checked + .custom-radio {
+  border-color: #d6e21f;
+}
+
+.radio-wrap input[type="radio"]:checked + .custom-radio::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  background: #d6e21f;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}

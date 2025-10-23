@@ -48,92 +48,41 @@ function inputCheck() {
 
   let valid = true;
 
-  // Amount check
-  if (!amount) {
-    errorMsg[0].innerHTML = "This field is required";
-    errBorder[0].classList.remove("focus-within:border-secondary");
-    errBorder[0].classList.add("focus-within:border-error");
-    errBg[0].classList.remove("group-focus-within:bg-secondary");
-    errBg[0].classList.add("group-focus-within:bg-error");
-    valid = false;
-  } else {
-    errorMsg[0].innerHTML = "";
-    errBorder[0].classList.remove("focus-within:border-error");
-    errBorder[0].classList.add("focus-within:border-secondary");
-    errBg[0].classList.remove("group-focus-within:bg-error");
-    errBg[0].classList.add("group-focus-within:bg-secondary");
-  }
+  const fields = [amount, years, rate];
 
-  // Years check
-  if (!years) {
-    errorMsg[1].innerHTML = "This field is required";
-    errBorder[1].classList.remove("focus-within:border-secondary");
-    errBorder[1].classList.add("focus-within:border-error");
-    errBg[1].classList.remove("group-focus-within:bg-secondary");
-    errBg[1].classList.add("group-focus-within:bg-error");
-    valid = false;
-  } else {
-    errorMsg[1].innerHTML = "";
-    errBorder[1].classList.remove("focus-within:border-error");
-    errBorder[1].classList.add("focus-within:border-secondary");
-    errBg[1].classList.remove("group-focus-within:bg-error");
-    errBg[1].classList.add("group-focus-within:bg-secondary");
-  }
-
-  // Rate check
-  if (!rate) {
-    errorMsg[2].innerHTML = "This field is required";
-    errBorder[2].classList.remove("focus-within:border-secondary");
-    errBorder[2].classList.add("focus-within:border-error");
-    errBg[2].classList.remove("group-focus-within:bg-secondary");
-    errBg[2].classList.add("group-focus-within:bg-error");
-    valid = false;
-  } else {
-    errorMsg[2].innerHTML = "";
-    errBorder[2].classList.remove("focus-within:border-error");
-    errBorder[2].classList.add("focus-within:border-secondary");
-    errBg[2].classList.remove("group-focus-within:bg-error");
-    errBg[2].classList.add("group-focus-within:bg-secondary");
-  }
+  fields.forEach((value, i) => {
+    if (!value) {
+      errorMsg[i].innerHTML = "This field is required";
+      errBorder[i].classList.remove("border-custom/30");
+      errBorder[i].classList.add("border-error");
+      errBg[i].classList.remove("bg-primary", "text-custom/70");
+      errBg[i].classList.add("bg-error", "text-white");
+      valid = false;
+    } else {
+      errorMsg[i].innerHTML = "";
+      // errBorder[i].classList.remove("border-error");
+      // errBorder[i].classList.add("border-custom/30");
+      // errBg[i].classList.remove("bg-error", "text-white");
+      // errBg[i].classList.add("bg-primary", "text-custom/70");
+    }
+  });
 
   // Radio button check
   if (!selected) {
     errorMsg[3].innerHTML = "This field is required";
-    errBorder[3].classList.remove("focus-within:border-secondary");
-    errBorder[3].classList.add("focus-within:border-error");
+    // errBorder[3].classList.remove("border-custom/30");
+    // errBorder[3].classList.add("border-error");
     valid = false;
   } else {
     errorMsg[3].innerHTML = "";
-    errBorder[3].classList.remove("focus-within:border-error");
-    errBorder[3].classList.add("focus-within:border-secondary");
+    // errBorder[3].classList.remove("border-error");
+    // errBorder[3].classList.add("border-custom/30");
   }
 
   return valid;
 }
 
-// Hide error messages dynamically as user types or selects
-amountInput.addEventListener("input", () => {
-  if (amountInput.value) errorMsg[0].innerHTML = "";
-});
-
-yearsInput.addEventListener("input", () => {
-  if (yearsInput.value) errorMsg[1].innerHTML = "";
-});
-
-rateInput.addEventListener("input", () => {
-  if (rateInput.value) errorMsg[2].innerHTML = "";
-});
-
-typeInputs.forEach((radio) => {
-  radio.addEventListener("change", () => {
-    const selected = document.querySelector(
-      'input[name="mortgageType"]:checked'
-    );
-    if (selected) errorMsg[3].innerHTML = "";
-  });
-});
-
-// 🔹 Clear button
+// Clear all inputs
 clearButtonEl.addEventListener("click", () => {
   const errBorder = document.querySelectorAll(".error-border");
   const errBg = document.querySelectorAll(".error-bg");
@@ -146,55 +95,93 @@ clearButtonEl.addEventListener("click", () => {
   const selected = document.querySelector('input[name="mortgageType"]:checked');
 
   if (amount || years || rate || selected) {
-    // 🔹 Clear inputs
+    // Clear inputs
     amountInput.value = "";
     yearsInput.value = "";
     rateInput.value = "";
     typeInputs.forEach((radio) => (radio.checked = false));
 
-    // 🔹 Reset error messages
+    // Reset error messages
     errorMsg[0].innerHTML = "Enter values to calculate mortgage.";
     errorMsg[1].innerHTML = "Enter values to calculate mortgage.";
     errorMsg[2].innerHTML = "Enter values to calculate mortgage.";
     errorMsg[3].innerHTML = "Select mortgage type";
 
-    // 🔹 Reset page display
+    // Reset page display
     resultPage.classList.remove("flex");
     resultPage.classList.add("hidden");
     defaultPage.classList.remove("hidden");
     defaultPage.classList.add("flex");
 
-    // 🔹 Reset border styles
-    errBorder.forEach((el) => {
-      el.classList.remove("focus-within:border-secondary");
-      el.classList.add("focus-within:border-error");
+    // Reset border styles
+    errBorder.forEach((element) => {
+      element.classList.remove("border-custom/30");
+      element.classList.add("border-error");
     });
 
-    // 🔹 Reset background styles
-    errBg.forEach((el) => {
-      el.classList.remove("group-focus-within:bg-secondary");
-      el.classList.add("group-focus-within:bg-error");
+    // Reset background styles
+    errBg.forEach((element) => {
+      element.classList.remove("bg-primary", "text-custom/70");
+      element.classList.add("bg-error", "text-white");
     });
   }
 });
+// Hide error messages dynamically as user types or selects
+function clearBorderBgErr(index) {
+  const errBorder = document.querySelectorAll(".error-border");
+  const errBg = document.querySelectorAll(".error-bg");
 
-// 🔹 Main calculation function
+  errBorder[index].classList.remove("border-error");
+  errBorder[index].classList.add("border-custom/30");
+  errBg[index].classList.remove("bg-error", "text-white");
+  errBg[index].classList.add("bg-primary", "text-custom/70");
+}
+
+// Amount input
+amountInput.addEventListener("input", () => {
+  if (amountInput.value) {
+    errorMsg[0].innerHTML = "";
+    clearBorderBgErr(0);
+  }
+});
+
+// Years input
+yearsInput.addEventListener("input", () => {
+  if (yearsInput.value) {
+    errorMsg[1].innerHTML = "";
+    clearBorderBgErr(1);
+  }
+});
+
+// Rate input
+rateInput.addEventListener("input", () => {
+  if (rateInput.value) {
+    errorMsg[2].innerHTML = "";
+    clearBorderBgErr(2);
+  }
+});
+
+typeInputs.forEach((radio) => {
+  radio.addEventListener("change", () => {
+    const selected = document.querySelector(
+      'input[name="mortgageType"]:checked'
+    );
+    if (selected) errorMsg[3].innerHTML = "";
+  });
+});
+
+// Main calculation function
 function calculateMortgage() {
-  // 🔹 Get input values
+  // Get input values
   const amount = parseFloat(amountInput.value.replace(/,/g, "")) || 0;
   const years = parseFloat(yearsInput.value) || 0;
-  const rate = parseFloat(rateInput.value.replace(/,/g, "")) || 0;
+  const rate = parseFloat(rateInput.value) || 0;
   const selected = document.querySelector('input[name="mortgageType"]:checked');
 
-  // if (isNaN(rate) || rate <= 0) {
-  //   errorMsg[2].innerHTML = "Please enter a valid interest rate";
-  //   return null;
-  // }
-  // Stop if any required field is missing
   if (!amount || !years || !rate || !selected) return null;
 
   const type = selected.value;
-  const monthlyRate = (rate + 0.05) / 100 / 12;
+  const monthlyRate = rate / 100 / 12;
   const months = years * 12;
 
   let monthlyPayment = 0;
@@ -202,13 +189,13 @@ function calculateMortgage() {
   let totalInterest = 0;
 
   if (type === "repayment") {
-    // 🔹 Standard amortization formula
+    // Standard amortization formula
     const factor = Math.pow(1 + monthlyRate, months);
     monthlyPayment = (amount * monthlyRate * factor) / (factor - 1);
     totalPayment = monthlyPayment * months;
     totalInterest = totalPayment - amount;
   } else if (type === "interest-only") {
-    // 🔹 Interest-only calculation
+    // Interest-only calculation
     monthlyPayment = amount * monthlyRate; // monthly interest only
     totalInterest = monthlyPayment * months; // total interest over loan term
     totalPayment = totalInterest; // principal is not repaid in interest-only
@@ -222,7 +209,7 @@ function calculateMortgage() {
   };
 }
 
-// 🔹 Submit button
+// Submit button
 submitButtonEl.addEventListener("click", () => {
   const defaultPage = document.getElementById("default-page");
   const resultPage = document.getElementById("result-page");
@@ -242,7 +229,7 @@ submitButtonEl.addEventListener("click", () => {
   }
 });
 
-// 🔹 Display function
+// Display function
 function displayResult({ type, monthlyPayment, totalPayment, totalInterest }) {
   let mortType = document.getElementById("mort-type");
   let monthlyRepay = document.getElementById("monthly-repay");

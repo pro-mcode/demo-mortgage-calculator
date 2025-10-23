@@ -789,6 +789,11 @@ video {
   border-color: rgb(16 45 61 / 0.4);
 }
 
+.border-error {
+  --tw-border-opacity: 1;
+  border-color: rgb(255 0 0 / var(--tw-border-opacity, 1));
+}
+
 .border-gray-600 {
   --tw-border-opacity: 1;
   border-color: rgb(75 85 99 / var(--tw-border-opacity, 1));
@@ -802,6 +807,11 @@ video {
 .bg-\[\#13303E\] {
   --tw-bg-opacity: 1;
   background-color: rgb(19 48 62 / var(--tw-bg-opacity, 1));
+}
+
+.bg-error {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 0 0 / var(--tw-bg-opacity, 1));
 }
 
 .bg-primary {
@@ -942,6 +952,10 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
+.text-custom\/30 {
+  color: rgb(16 45 61 / 0.3);
+}
+
 .underline {
   text-decoration-line: underline;
 }
@@ -1060,6 +1074,11 @@ input[type="number"] {
   /* Firefox */
 }
 
+.focus-within\:border-error:focus-within {
+  --tw-border-opacity: 1;
+  border-color: rgb(255 0 0 / var(--tw-border-opacity, 1));
+}
+
 .focus-within\:border-secondary:focus-within {
   --tw-border-opacity: 1;
   border-color: rgb(214 226 31 / var(--tw-border-opacity, 1));
@@ -1085,6 +1104,11 @@ input[type="number"] {
 .focus\:outline-none:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
+}
+
+.group:focus-within .group-focus-within\:bg-error {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 0 0 / var(--tw-bg-opacity, 1));
 }
 
 .group:focus-within .group-focus-within\:bg-secondary {
@@ -1200,10 +1224,6 @@ input[type="number"] {
 
   .md\:rounded-bl-\[4rem\] {
     border-bottom-left-radius: 4rem;
-  }
-
-  .md\:rounded-bl-\[6rem\] {
-    border-bottom-left-radius: 6rem;
   }
 
   .md\:px-8 {

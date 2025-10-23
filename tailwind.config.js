@@ -18,5 +18,11 @@ module.exports = {
       },
     },
   },
+  safelist: [
+    "bg-error",
+    "border-error",
+    "focus-within:border-error",
+    "group-focus-within:bg-error",
+  ],
   plugins: [],
 };

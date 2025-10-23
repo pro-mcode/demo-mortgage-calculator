@@ -1,3 +1,4 @@
+/*
 // 🔹 Get elements
 const clearButtonEl = document.getElementById("clear-inputs");
 const amountInput = document.getElementById("mortgage-amount");
@@ -222,3 +223,4 @@ submitButtonEl.addEventListener("click", () => {
     resultPage.classList.add("hidden");
   }
 });
+*/

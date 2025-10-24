@@ -5,7 +5,7 @@ It allows users to calculate their monthly repayments and total repayment over a
 
 ## 🚀 Live Demo
 
-## 🔗 Live Site: https://demo-card-form.netlify.app
+## 🔗 Live Site: https://demo-mortgage-calculatorr.netlify.app
 
 ## 💻 GitHub Repo: [https://github.com/pro-mcode/demo-mortgage-calculator] (https://github.com/pro-mcode/demo-mortgage-calculator)
 

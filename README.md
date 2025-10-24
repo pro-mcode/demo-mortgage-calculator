@@ -5,39 +5,39 @@ It allows users to calculate their monthly repayments and total repayment over a
 
 ## 🚀 Live Demo
 
-## 🔗 Live Site: https://demo-mortgage-calculatorr.netlify.app
+## 🔗 Live Site: https://demo-card-form.netlify.app
 
 ## 💻 GitHub Repo: [https://github.com/pro-mcode/demo-mortgage-calculator] (https://github.com/pro-mcode/demo-mortgage-calculator)
 
 ## 🚀 Features
 
-# ✅ Dynamic Form Validation
+## ✅ Dynamic Form Validation
 
 Highlights empty or invalid fields in red (bg-error, border-error).
 
 Clears errors automatically as users type or correct input.
 
-# ✅ Real-Time Input Formatting
+## ✅ Real-Time Input Formatting
 
 Automatically formats the mortgage amount with commas as the user types (e.g. 120000 → 120,000).
 
-# ✅ Supports Two Mortgage Types
+## ✅ Supports Two Mortgage Types
 
 Repayment — calculates standard amortized monthly payments.
 
 Interest-Only — calculates only monthly interest repayments.
 
-# ✅ Interactive UI
+## ✅ Interactive UI
 
 Clear button resets all fields, messages, and visual states.
 
 Results and default views toggle dynamically (default-page ↔ result-page).
 
-# ✅ Responsive Design
+## ✅ Responsive Design
 
 Optimized for mobile, tablet, and desktop via Tailwind breakpoints (xs → xl).
 
-# 🧩 Tech Stack
+## 🧩 Tech Stack
 
 HTML5 — Structure
 
@@ -91,30 +91,30 @@ mortgage-calculator/
 
 ## ⚙️ Setup & Build Instructions
 
-# 1️⃣ Install Dependencies
+## 1️⃣ Install Dependencies
 
 Make sure Node.js and npm are installed. Then:
 
 npm install -D tailwindcss
 npx tailwindcss init
 
-# 2️⃣ Configure Tailwind
+## 2️⃣ Configure Tailwind
 
 Update your tailwind.config.js with your content paths and safelist.
 
-# 3️⃣ Generate CSS
+## 3️⃣ Generate CSS
 
 Run Tailwind CLI to watch or build styles:
 
 npx tailwindcss -i ./css/input.css -o ./css/output.css --watch
 
-# 4️⃣ Open in Browser
+## 4️⃣ Open in Browser
 
 Simply open index.html in your browser, or use a local server like Live Server in VS Code.
 
 ## 🧮 Core Logic Overview
 
-# 🧠 calculateMortgage()
+## 🧠 calculateMortgage()
 
 Handles both repayment and interest-only calculations:
 
@@ -160,21 +160,26 @@ Displays default view again
 
 ## 🖥️ Screenshots (optional section for GitHub)
 
-Add screenshots here showing:
-
 Default empty state
+![Default empty state!](https://file%2B.vscode-resource.vscode-cdn.net/var/folders/1f/qcd_m2yj7vx8q4f62vbn88pr0000gn/T/TemporaryItems/NSIRD_screencaptureui_IQwTKc/Screenshot%202025-10-24%20at%2001.12.43.png?version%3D1761264785195)
 
 Validation state
+![Validation state](https://file%2B.vscode-resource.vscode-cdn.net/var/folders/1f/qcd_m2yj7vx8q4f62vbn88pr0000gn/T/TemporaryItems/NSIRD_screencaptureui_kuTpt4/Screenshot%202025-10-24%20at%2001.14.18.png?version%3D1761264865111)
 
 Calculation results
+![Calculation results](https://file%2B.vscode-resource.vscode-cdn.net/var/folders/1f/qcd_m2yj7vx8q4f62vbn88pr0000gn/T/TemporaryItems/NSIRD_screencaptureui_XXvDvb/Screenshot%202025-10-24%20at%2001.15.57.png?version%3D1761264964001)
+
+## 📜 License
+
+This project is open-source under the MIT License — feel free to use and modify it.
 
 ## 🧑‍💻 Author
 
 Adedamola Maxwell
 Frontend Engineer & Blockchain Enthusiast
 
-# 💼 GitHub: [https://github.com/pro-mcode]
+## 💼 GitHub: [https://github.com/pro-mcode]
 
-# 📧 Email: [promcode01@gmail.com]
+## 📧 Email: [promcode01@gmail.com]
 
-## 💡 “Building fast, responsive, and accessible web experiences — one project at a time.”
+### 💡 “Building fast, responsive, and accessible web experiences — one project at a time.”

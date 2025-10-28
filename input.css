@@ -1,7 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Roboto:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300..700&display=swap");
+@layer base {
+  input:-webkit-autofill,
+  textarea:-webkit-autofill,
+  select:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+    -webkit-text-fill-color: currentColor !important;
+    transition: background-color 5000s ease-in-out 0s;
+    caret-color: currentColor;
+  }
+}
 .body-container {
   @apply md:bg-primary mx-auto flex flex-col justify-center items-center min-h-screen md:py-12 md:px-5;
 }

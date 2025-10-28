@@ -14,7 +14,10 @@ module.exports = {
         primary: "#E3F4FC",
         secondary: "#D6E21F",
         custom: "#102D3D",
-        error: "#FF0000",
+        error: "hsl(4, 69%, 50%)",
+      },
+      fontFamily: {
+        sans: ["Plus Jakarta Sans", "sans-serif"],
       },
     },
   },

@@ -1,74 +1,284 @@
-/*
-function calculateMortgage(principal, annualInterestRate, years) {
-  // Input validation
-  if (isNaN(principal) || isNaN(annualInterestRate) || isNaN(years)) {
-    throw new Error("All parameters must be valid numbers.");
-  }
-  if (principal <= 0 || years <= 0 || annualInterestRate < 0) {
-    throw new Error(
-      "Principal and years must be positive; rate cannot be negative."
-    );
-  }
+// 🔹 Get elements
+const clearButtonEl = document.getElementById("clear-inputs");
+const amountInput = document.getElementById("mortgage-amount");
+const yearsInput = document.getElementById("mortgage-years");
+const rateInput = document.getElementById("mortgage-rate");
+const typeInputs = document.querySelectorAll('input[name="mortgageType"]');
+const submitButtonEl = document.getElementById("calculate-mortgage");
+const errorMsg = document.querySelectorAll(".err-msg");
+const resultEl = document.getElementById("mortgage-result");
 
-  // Convert interest rate to decimal if needed (e.g., 5 -> 0.05)
-  if (annualInterestRate >= 1) {
-    annualInterestRate = annualInterestRate / 100;
-  }
-
-  // Handle near-zero interest rate
-  if (annualInterestRate < 0.0001) {
-    return principal / (years * 12);
+// 🔹 Format amount input with commas (supports decimals)
+amountInput.addEventListener("input", (e) => {
+  let value = amountInput.value.replace(/,/g, ""); // remove commas
+  if (value === "" || isNaN(value)) {
+    amountInput.value = "";
+    return;
   }
 
-  // Convert to monthly
-  const monthlyInterestRate = annualInterestRate / 12;
-  const numberOfPayments = years * 12;
+  // Allow typing partial decimals like "0." or ".5"
+  if (value === "." || value === "0.") return;
 
-  // Formula: M = P[i(1+i)^n] / [(1+i)^n – 1]
-  const monthlyPayment =
-    (principal *
-      monthlyInterestRate *
-      Math.pow(1 + monthlyInterestRate, numberOfPayments)) /
-    (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
+  // Get cursor position
+  const selectionStart = amountInput.selectionStart;
+  const oldLength = amountInput.value.length;
 
-  return monthlyPayment;
+  // ✅ Use parseFloat to preserve decimals
+  const formatted = parseFloat(value).toLocaleString(undefined, {
+    maximumFractionDigits: 2,
+  });
+
+  // Set formatted value
+  amountInput.value = formatted;
+
+  // Adjust cursor position
+  const newLength = formatted.length;
+  const diff = newLength - oldLength;
+  amountInput.setSelectionRange(selectionStart + diff, selectionStart + diff);
+});
+
+// 🔹 Clean and validate rate input dynamically
+rateInput.addEventListener("input", (e) => {
+  let val = rateInput.value.replace(/[^0-9.]/g, ""); // allow only digits & '.'
+  const parts = val.split(".");
+
+  // prevent multiple decimal points
+  if (parts.length > 2) val = parts[0] + "." + parts[1];
+
+  // prevent leading '.' (like ".5")
+  if (val.startsWith(".")) val = "0" + val;
+
+  rateInput.value = val;
+
+  // clear error message dynamically
+  if (val) {
+    errorMsg[2].innerHTML = "";
+    clearBorderBgErr(2);
+  }
+});
+
+// 🔹 Validate input fields
+function inputCheck() {
+  const errBorder = document.querySelectorAll(".error-border");
+  const errBg = document.querySelectorAll(".error-bg");
+  const amount = parseFloat(amountInput.value.replace(/,/g, "")) || 0;
+  const years = parseFloat(yearsInput.value) || 0;
+  const rate = parseFloat(rateInput.value) || 0;
+  const selected = document.querySelector('input[name="mortgageType"]:checked');
+
+  let valid = true;
+  const fields = [amount, years, rate];
+
+  fields.forEach((value, i) => {
+    if (!value) {
+      errorMsg[i].innerHTML = "This field is required";
+      errBorder[i].classList.remove("border-custom/30");
+      errBorder[i].classList.add("border-error");
+      errBg[i].classList.remove("bg-primary", "text-custom/70");
+      errBg[i].classList.add("bg-error", "text-white");
+      valid = false;
+    } else {
+      errorMsg[i].innerHTML = "";
+    }
+  });
+
+  // Radio button check
+  if (!selected) {
+    errorMsg[3].innerHTML = "This field is required";
+    valid = false;
+  } else {
+    errorMsg[3].innerHTML = "";
+  }
+
+  return valid;
 }
 
-// ✅ Example usage:
-const monthly = calculateMortgage(300000, 15, 25);
-console.log(`Monthly payment with 4.5% rate: $${monthly.toFixed(2)}`);
-// // Example usage:
-// try {
-//   // Works with a standard decimal
-//   console.log(
-//     `Monthly payment with 4.5% rate: $${calculateMortgage(
-//       200000,
-//       0.045,
-//       30
-//     ).toFixed(2)}`
-//   );
+// 🔹 Clear all inputs
+clearButtonEl.addEventListener("click", () => {
+  const errBorder = document.querySelectorAll(".error-border");
+  const errBg = document.querySelectorAll(".error-bg");
+  const defaultPage = document.getElementById("default-page");
+  const resultPage = document.getElementById("result-page");
 
-//   // Works with an integer input (e.g., user enters "5")
-//   console.log(
-//     `Monthly payment with integer rate (5): $${calculateMortgage(
-//       200000,
-//       5,
-//       30
-//     ).toFixed(2)}`
-//   );
+  const amount = parseFloat(amountInput.value) || 0;
+  const years = parseFloat(yearsInput.value) || 0;
+  const rate = parseFloat(rateInput.value) || 0;
+  const selected = document.querySelector('input[name="mortgageType"]:checked');
 
-//   // Handles a very small decimal, effectively treating as a zero-interest loan
-//   console.log(
-//     `Monthly payment with a very low rate (0.00001): $${calculateMortgage(
-//       200000,
-//       0.00001,
-//       30
-//     ).toFixed(2)}`
-//   );
+  if (amount || years || rate || selected) {
+    // Clear inputs
+    amountInput.value = "";
+    yearsInput.value = "";
+    rateInput.value = "";
+    typeInputs.forEach((radio) => (radio.checked = false));
 
-//   // Throws an error for invalid input
-//   calculateMortgage(200000, -1, 30);
-// } catch (error) {
-//   console.error(error.message);
-// }
-*/
+    // Reset error messages
+    errorMsg[0].innerHTML = "Enter values to calculate mortgage.";
+    errorMsg[1].innerHTML = "Enter values to calculate mortgage.";
+    errorMsg[2].innerHTML = "Enter values to calculate mortgage.";
+    errorMsg[3].innerHTML = "Select mortgage type";
+
+    // Reset page display
+    resultPage.classList.remove("flex");
+    resultPage.classList.add("hidden");
+    defaultPage.classList.remove("hidden");
+    defaultPage.classList.add("flex");
+
+    // Reset border styles
+    errBorder.forEach((element) => {
+      element.classList.remove("border-custom/30");
+      element.classList.add("border-error");
+    });
+
+    // Reset background styles
+    errBg.forEach((element) => {
+      element.classList.remove("bg-primary", "text-custom/70");
+      element.classList.add("bg-error", "text-white");
+    });
+  }
+});
+
+// 🔹 Hide error messages dynamically as user types or selects
+function clearBorderBgErr(index) {
+  const errBorder = document.querySelectorAll(".error-border");
+  const errBg = document.querySelectorAll(".error-bg");
+
+  errBorder[index].classList.remove("border-error");
+  errBorder[index].classList.add("border-custom/30");
+  errBg[index].classList.remove("bg-error", "text-white");
+  errBg[index].classList.add("bg-primary", "text-custom/70");
+}
+
+// Dynamic error clearing
+amountInput.addEventListener("input", () => {
+  if (amountInput.value) {
+    errorMsg[0].innerHTML = "";
+    clearBorderBgErr(0);
+  }
+});
+
+yearsInput.addEventListener("input", () => {
+  if (yearsInput.value) {
+    errorMsg[1].innerHTML = "";
+    clearBorderBgErr(1);
+  }
+});
+
+typeInputs.forEach((radio) => {
+  radio.addEventListener("change", () => {
+    const selected = document.querySelector(
+      'input[name="mortgageType"]:checked'
+    );
+    if (selected) errorMsg[3].innerHTML = "";
+  });
+});
+
+// 🔹 Main calculation function (hardened)
+function calculateMortgage() {
+  const amount = Number(amountInput.value.replace(/,/g, "").trim());
+  const years = Number(yearsInput.value.trim());
+  const rate = Number(rateInput.value.trim());
+  const selected = document.querySelector('input[name="mortgageType"]:checked');
+
+  // ✅ Stronger numeric validation
+  if (
+    isNaN(amount) ||
+    amount <= 0 ||
+    isNaN(years) ||
+    years <= 0 ||
+    isNaN(rate) ||
+    rate <= 0 ||
+    !selected
+  ) {
+    return null;
+  }
+
+  const type = selected.value;
+  const monthlyRate = rate / 100 / 12;
+  const months = years * 12;
+
+  let monthlyPayment = 0;
+  let totalPayment = 0;
+  let totalInterest = 0;
+
+  if (type === "repayment") {
+    const factor = Math.pow(1 + monthlyRate, months);
+    monthlyPayment = (amount * monthlyRate * factor) / (factor - 1);
+    totalPayment = monthlyPayment * months;
+    totalInterest = totalPayment - amount;
+  } else if (type === "interest-only") {
+    monthlyPayment = amount * monthlyRate;
+    totalInterest = monthlyPayment * months;
+    totalPayment = totalInterest;
+  }
+
+  return { type, monthlyPayment, totalPayment, totalInterest };
+}
+
+// 🔹 Submit button click handler (fixed disappearing bug)
+submitButtonEl.addEventListener("click", () => {
+  const defaultPage = document.getElementById("default-page");
+  const resultPage = document.getElementById("result-page");
+
+  if (!inputCheck()) return; // Stop if validation fails
+
+  const result = calculateMortgage();
+  if (result) {
+    displayResult(result);
+    defaultPage.classList.add("hidden");
+    resultPage.classList.remove("hidden");
+    resultPage.classList.add("flex");
+  } else {
+    // ✅ Only reset UI if inputs are truly empty or invalid
+    if (
+      !amountInput.value ||
+      !yearsInput.value ||
+      !rateInput.value ||
+      !document.querySelector('input[name="mortgageType"]:checked')
+    ) {
+      resultPage.classList.remove("flex");
+      resultPage.classList.add("hidden");
+      defaultPage.classList.remove("hidden");
+      defaultPage.classList.add("flex");
+    }
+  }
+});
+
+// 🔹 Display calculation results
+function displayResult({ type, monthlyPayment, totalPayment, totalInterest }) {
+  let mortType = document.getElementById("mort-type");
+  let monthlyRepay = document.getElementById("monthly-repay");
+  let totalRepay = document.getElementById("total-repay");
+  let repaymentNote = document.getElementById("repayment");
+
+  mortType.innerHTML = `${
+    type === "repayment"
+      ? "Your monthly repayments"
+      : "Your monthly interest repayments"
+  }`;
+
+  repaymentNote.innerHTML = `${
+    type === "repayment"
+      ? "Total you'll repay over the term"
+      : "Total interest you'll repay over the term"
+  }`;
+
+  monthlyRepay.innerHTML = `£${monthlyPayment.toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;
+
+  if (type === "repayment") {
+    totalRepay.innerHTML = `£${totalPayment.toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
+  }
+
+  if (type === "interest-only") {
+    totalRepay.innerHTML = `£${totalInterest.toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
+  }
+}

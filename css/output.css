@@ -154,7 +154,7 @@ html,
   -o-tab-size: 4;
      tab-size: 4;
   /* 3 */
-  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: Plus Jakarta Sans, sans-serif;
   /* 4 */
   font-feature-settings: normal;
   /* 5 */
@@ -554,6 +554,16 @@ video {
   display: none;
 }
 
+input:-webkit-autofill,
+  textarea:-webkit-autofill,
+  select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+  -webkit-text-fill-color: currentColor !important;
+  -webkit-transition: background-color 5000s ease-in-out 0s;
+  transition: background-color 5000s ease-in-out 0s;
+  caret-color: currentColor;
+}
+
 .absolute {
   position: absolute;
 }
@@ -791,7 +801,7 @@ video {
 
 .border-error {
   --tw-border-opacity: 1;
-  border-color: rgb(255 0 0 / var(--tw-border-opacity, 1));
+  border-color: hsl(4 69% 50% / var(--tw-border-opacity, 1));
 }
 
 .border-gray-600 {
@@ -811,7 +821,7 @@ video {
 
 .bg-error {
   --tw-bg-opacity: 1;
-  background-color: rgb(255 0 0 / var(--tw-bg-opacity, 1));
+  background-color: hsl(4 69% 50% / var(--tw-bg-opacity, 1));
 }
 
 .bg-primary {
@@ -879,6 +889,10 @@ video {
   text-align: center;
 }
 
+.font-sans {
+  font-family: Plus Jakarta Sans, sans-serif;
+}
+
 .text-4xl {
   font-size: 2.25rem;
   line-height: 2.5rem;
@@ -939,7 +953,7 @@ video {
 
 .text-error {
   --tw-text-opacity: 1;
-  color: rgb(255 0 0 / var(--tw-text-opacity, 1));
+  color: hsl(4 69% 50% / var(--tw-text-opacity, 1));
 }
 
 .text-secondary {
@@ -950,10 +964,6 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
-}
-
-.text-custom\/30 {
-  color: rgb(16 45 61 / 0.3);
 }
 
 .underline {
@@ -1076,7 +1086,7 @@ input[type="number"] {
 
 .focus-within\:border-error:focus-within {
   --tw-border-opacity: 1;
-  border-color: rgb(255 0 0 / var(--tw-border-opacity, 1));
+  border-color: hsl(4 69% 50% / var(--tw-border-opacity, 1));
 }
 
 .focus-within\:border-secondary:focus-within {
@@ -1108,7 +1118,7 @@ input[type="number"] {
 
 .group:focus-within .group-focus-within\:bg-error {
   --tw-bg-opacity: 1;
-  background-color: rgb(255 0 0 / var(--tw-bg-opacity, 1));
+  background-color: hsl(4 69% 50% / var(--tw-bg-opacity, 1));
 }
 
 .group:focus-within .group-focus-within\:bg-secondary {

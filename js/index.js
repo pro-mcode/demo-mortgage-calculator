@@ -30,13 +30,6 @@ amountInput.addEventListener("input", (e) => {
   const diff = newLength - oldLength;
   amountInput.setSelectionRange(selectionStart + diff, selectionStart + diff);
 });
-// rateInput.addEventListener("input", (e) => {
-//   let val = rateInput.value.replace(/[^0-9.]/g, ""); // only numbers & decimal
-//   const parts = val.split(".");
-//   if (parts.length > 2) val = parts[0] + "." + parts[1]; // prevent multiple dots
-//   rateInput.value = val;
-// });
-
 // Validate input fields
 function inputCheck() {
   const errBorder = document.querySelectorAll(".error-border");
@@ -60,28 +53,19 @@ function inputCheck() {
       valid = false;
     } else {
       errorMsg[i].innerHTML = "";
-      // errBorder[i].classList.remove("border-error");
-      // errBorder[i].classList.add("border-custom/30");
-      // errBg[i].classList.remove("bg-error", "text-white");
-      // errBg[i].classList.add("bg-primary", "text-custom/70");
     }
   });
 
   // Radio button check
   if (!selected) {
     errorMsg[3].innerHTML = "This field is required";
-    // errBorder[3].classList.remove("border-custom/30");
-    // errBorder[3].classList.add("border-error");
     valid = false;
   } else {
     errorMsg[3].innerHTML = "";
-    // errBorder[3].classList.remove("border-error");
-    // errBorder[3].classList.add("border-custom/30");
   }
 
   return valid;
 }
-
 // Clear all inputs
 clearButtonEl.addEventListener("click", () => {
   const errBorder = document.querySelectorAll(".error-border");
@@ -136,6 +120,12 @@ function clearBorderBgErr(index) {
   errBg[index].classList.remove("bg-error", "text-white");
   errBg[index].classList.add("bg-primary", "text-custom/70");
 }
+rateInput.addEventListener("input", (e) => {
+  let val = rateInput.value.replace(/[^0-9.]/g, ""); // only numbers & decimal
+  const parts = val.split(".");
+  if (parts.length > 2) val = parts[0] + "." + parts[1]; // prevent multiple dots
+  rateInput.value = val;
+});
 
 // Amount input
 amountInput.addEventListener("input", () => {
@@ -175,7 +165,8 @@ function calculateMortgage() {
   // Get input values
   const amount = parseFloat(amountInput.value.replace(/,/g, "")) || 0;
   const years = parseFloat(yearsInput.value) || 0;
-  const rate = parseFloat(rateInput.value) || 0;
+  const rate = Number(rateInput.value.trim());
+  if (isNaN(rate) || rate <= 0) return null;
   const selected = document.querySelector('input[name="mortgageType"]:checked');
 
   if (!amount || !years || !rate || !selected) return null;
